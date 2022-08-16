@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
@@ -107,9 +108,13 @@ public class UsuarioController {
         // Data em JAVA
         // https://www.alura.com.br/artigos/pegando-a-data-atual-em-java
 
-        Calendar data = Calendar.getInstance();
+        Calendar data1 = Calendar.getInstance();
+        LocalDate data2 = LocalDate.now();
 
-        return "{\"data\":\"" + data.getTime().toString() + "\"}";
+        return "{" +
+                "\"data1\":\"" + data1.getTime().toString() + "\"," +
+                "\"data2\":\"" + data2.toString() + "\"" +
+                "}";
     }
 
 
