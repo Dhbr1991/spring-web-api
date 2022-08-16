@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,5 +100,18 @@ public class UsuarioController {
         // retorna os usuarios para nao retornar em branco...
         return "[" + dados + "]";
     }
+
+    @GetMapping ("/ping")
+    public String ping() {
+
+        // Data em JAVA
+        // https://www.alura.com.br/artigos/pegando-a-data-atual-em-java
+
+        Calendar data = Calendar.getInstance();
+
+        return "{\"data\":\"" + data.getTime().toString() + "\"}";
+    }
+
+
 
 }
