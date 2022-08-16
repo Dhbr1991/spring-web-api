@@ -30,6 +30,7 @@ public class UsuarioRepository {
 
         usuarios.add(new Usuario("gleyson", "password"));
         usuarios.add(new Usuario("frank", "masterpass"));
+        usuarios.add(new Usuario("frank23", "masterpass"));
 
         return usuarios;
     }
