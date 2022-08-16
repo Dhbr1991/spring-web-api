@@ -88,12 +88,16 @@ public class UsuarioController {
     }
 
     @GetMapping ("/testBanco")
-    public List<Usuario> testBancoPostgres() {
+    public String testBancoPostgres() {
 
-//        Conexao conexao = new Conexao();
-//        conexao.get
+        String dados = Conexao.conectaBanco();
+
+        List <Usuario> dadosRepositorio = repository.findAll();
+
+        System.out.println(dadosRepositorio);
+
         // retorna os usuarios para nao retornar em branco...
-        return repository.findAll();
+        return "[" + dados + "]";
     }
 
 }

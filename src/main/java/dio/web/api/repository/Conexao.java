@@ -9,11 +9,14 @@ public class Conexao {
         conectaBanco();
     }
 
-    static void conectaBanco(){
+    public static String conectaBanco(){
         String driver  = "org.postgresql.Driver";
         String url     = "jdbc:postgresql://motty.db.elephantsql.com/dfgxpned";
         String usuario = "dfgxpned";
         String senha   = "Qn0rrW9uSnJ4ZioM7CmZUKaZGXsH1hnj";
+
+        String lista_dados = "";
+        String lista_dados_json = "";
 
         Connection conexao;
         Statement statement;
@@ -22,30 +25,41 @@ public class Conexao {
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, usuario, senha);
 
-            JOptionPane.showMessageDialog(null, "Conectou com o PostgreSQL!");
+            //JOptionPane.showMessageDialog(null, "Conectou com o PostgreSQL!");
 
             System.out.println("Conectou com o PostgreSQL!");
 
             statement = conexao.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                                                 ResultSet.CONCUR_READ_ONLY);
 
-            resultset = statement.executeQuery("select * from usuario");
+            resultset = statement.executeQuery("select * from usuario limit 1");
 
-            String lista_dados = "";
             while (resultset.next()) {
+                int usucodigo = resultset.getInt("usucodigo");
+                String usuemail = resultset.getString("usucodigo");
+                String ususenha = resultset.getString("ususenha");
+
                 lista_dados = lista_dados + "Codigo .: " + resultset.getInt("usucodigo");
                 lista_dados = lista_dados + "\nE-mail .: " + resultset.getString("usuemail") + "\n";
                 lista_dados = lista_dados + "\nSenha .: " + resultset.getString("ususenha") + "\n";
+
+                lista_dados_json = lista_dados_json + "{" +
+                        "\"usucodigo\":\"" + usucodigo +"\"," +
+                        "\"usuemail\":\"" + usuemail +"\"," +
+                        "\"ususenha\":\"" + ususenha +"\"" +
+                        "}";
             }
 
-            JOptionPane.showMessageDialog(null, lista_dados);
+            //JOptionPane.showMessageDialog(null, lista_dados);
 
-            //System.out.println(lista_dados);
+            System.out.println(lista_dados);
 
         } catch (ClassNotFoundException Driver) {
-            JOptionPane.showMessageDialog(null, "Driver não localizado: " + Driver);
+            //JOptionPane.showMessageDialog(null, "Driver não localizado: " + Driver);
         } catch (SQLException Fonte) {
-            JOptionPane.showMessageDialog(null, "Deu erro na conexão com a fonte de dados: " + Fonte);
+            //JOptionPane.showMessageDialog(null, "Deu erro na conexão com a fonte de dados: " + Fonte);
         }
+
+        return lista_dados_json;
     }
 }
