@@ -1,6 +1,7 @@
 package dio.web.api.controller;
 
 import dio.web.api.model.Usuario;
+import dio.web.api.repository.Conexao;
 import dio.web.api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,12 +32,12 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository repository;
 
-    @GetMapping("/users")
-    public List<Usuario> getUsers(){
+    @GetMapping ("/users")
+    public List<Usuario> getUsers() {
         return repository.findAll();
     }
 
-    @GetMapping("/api")
+    @GetMapping ("/api")
     public String getdadosApi() throws IOException {
 
         URL url = new URL("http://api.portaldatransparencia.gov.br/api-de-dados/orgaos-siafi?pagina=1");
@@ -63,7 +64,6 @@ public class UsuarioController {
             output_html.append(output);
 
             System.out.println(output);
-
         }
 
         connection.disconnect();
@@ -76,13 +76,24 @@ public class UsuarioController {
         return output_html.toString();
     }
 
-    @GetMapping("users/{username}")
-    public Usuario getOne(@PathVariable("username") String username){
+    @GetMapping ("users/{username}")
+    public Usuario getOne(@PathVariable ("username") String username) {
         return repository.findByUsername(username);
     }
 
-    @DeleteMapping("/users/{id}")
-    public void delete(@PathVariable("id") Integer id){
+    @DeleteMapping ("/users/{id}")
+    public void delete(@PathVariable ("id") Integer id) {
+
         repository.deleteById(id);
     }
+
+    @GetMapping ("/testBanco")
+    public List<Usuario> testBancoPostgres() {
+
+//        Conexao conexao = new Conexao();
+//        conexao.get
+        // retorna os usuarios para nao retornar em branco...
+        return repository.findAll();
+    }
+
 }
