@@ -2,48 +2,74 @@ package dio.web.api.model;
 
 public class Usuario {
 
-    private Integer id;
-    private String login;
-    private String password;
+    //  int usucodigo   = rs.getInt("usucodigo");
+    //                String usunome  = rs.getString("usunome");
+    //                String usuemail = rs.getString("usuemail");
+    //                String ususenha = rs.getString("ususenha");
+    //                String usutoken = rs.getString("usutoken");
+    //                int usuativo    = rs.getInt("usuativo");
 
-    public Usuario() {
+    private Integer usucodigo;
+    private String usunome;
+    private String usuemail;
+    private String ususenha;
+    private String usutoken;
+    private Integer usuativo;
 
+    public Usuario(Integer usucodigo, String usunome, String usuemail, String ususenha, String usutoken, Integer usuativo) {
+        this.usucodigo = usucodigo;
+        this.usunome = usunome;
+        this.usuemail = usuemail;
+        this.ususenha = ususenha;
+        this.usutoken = usutoken;
+        this.usuativo = usuativo;
     }
 
-    public Usuario(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public Integer getUsucodigo() {
+        return usucodigo;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public void setUsucodigo(Integer usucodigo) {
+        this.usucodigo = usucodigo;
     }
 
-    public Integer getId() {
-        return id;
+    public String getUsunome() {
+        return usunome;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUsunome(String usunome) {
+        this.usunome = usunome;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsuemail() {
+        return usuemail;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsuemail(String usuemail) {
+        this.usuemail = usuemail;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUsusenha() {
+        return ususenha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUsusenha(String ususenha) {
+        this.ususenha = ususenha;
+    }
+
+    public String getUsutoken() {
+        return usutoken;
+    }
+
+    public void setUsutoken(String usutoken) {
+        this.usutoken = usutoken;
+    }
+
+    public Integer getUsuativo() {
+        return usuativo;
+    }
+
+    public void setUsuativo(Integer usuativo) {
+        this.usuativo = usuativo;
     }
 }

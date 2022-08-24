@@ -1,15 +1,17 @@
 package dio.web.api.repository;
 
+/**
+ *
+ * @author Gelvazio Camargo
+ * @since 23/08/2022 22:15
+ */
 import java.sql.*;
 import javax.swing.JOptionPane;
 
 public class Conexao {
 
-    public static void main(String args[]) {
-        conectaBanco();
-    }
+    public static Connection getConexao() {
 
-    public static String conectaBanco(){
         String driver  = "org.postgresql.Driver";
         String url     = "jdbc:postgresql://motty.db.elephantsql.com/dfgxpned";
         String usuario = "dfgxpned";
@@ -18,48 +20,28 @@ public class Conexao {
         String lista_dados = "";
         String lista_dados_json = "";
 
-        Connection conexao;
-        Statement statement;
-        ResultSet resultset;
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultset = null;
         try {
             Class.forName(driver);
-            conexao = DriverManager.getConnection(url, usuario, senha);
-
-            //JOptionPane.showMessageDialog(null, "Conectou com o PostgreSQL!");
-
-            System.out.println("Conectou com o PostgreSQL!");
-
-            statement = conexao.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                                                ResultSet.CONCUR_READ_ONLY);
-
-            resultset = statement.executeQuery("select * from usuario limit 1");
-
-            while (resultset.next()) {
-                int usucodigo = resultset.getInt("usucodigo");
-                String usuemail = resultset.getString("usucodigo");
-                String ususenha = resultset.getString("ususenha");
-
-                lista_dados = lista_dados + "Codigo .: " + resultset.getInt("usucodigo");
-                lista_dados = lista_dados + "\nE-mail .: " + resultset.getString("usuemail") + "\n";
-                lista_dados = lista_dados + "\nSenha .: " + resultset.getString("ususenha") + "\n";
-
-                lista_dados_json = lista_dados_json + "{" +
-                        "\"usucodigo\":\"" + usucodigo +"\"," +
-                        "\"usuemail\":\"" + usuemail +"\"," +
-                        "\"ususenha\":\"" + ususenha +"\"" +
-                        "}";
-            }
-
-            //JOptionPane.showMessageDialog(null, lista_dados);
-
-            System.out.println(lista_dados);
-
-        } catch (ClassNotFoundException Driver) {
-            //JOptionPane.showMessageDialog(null, "Driver não localizado: " + Driver);
-        } catch (SQLException Fonte) {
-            //JOptionPane.showMessageDialog(null, "Deu erro na conexão com a fonte de dados: " + Fonte);
+            conn = DriverManager.getConnection(url, usuario, senha);
+        } catch (ClassNotFoundException erro) {
+            JOptionPane.showMessageDialog(null, "Erro de driver! \n" + erro.getMessage());
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro de Conexao! \n" + erro.getMessage());
         }
 
-        return lista_dados_json;
+        return conn;
+    }
+
+    public static void closeAll(Connection conn) {
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao fechar conexao! \n " + erro.getMessage());
+        }
     }
 }

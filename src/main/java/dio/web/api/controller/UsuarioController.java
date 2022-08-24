@@ -1,7 +1,7 @@
 package dio.web.api.controller;
 
 import dio.web.api.model.Usuario;
-import dio.web.api.repository.Conexao;
+import dio.web.api.repository.ConexaoTeste;
 import dio.web.api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,18 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.*;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-
-import java.io.BufferedReader;
-
 import java.io.IOException;
-
-import java.io.InputStreamReader;
 
 import java.net.HttpURLConnection;
 
@@ -92,7 +85,7 @@ public class UsuarioController {
     @GetMapping ("/testBanco")
     public String testBancoPostgres() {
 
-        String dados = Conexao.conectaBanco();
+        String dados = ConexaoTeste.conectaBanco();
 
         List <Usuario> dadosRepositorio = repository.findAll();
 
@@ -113,7 +106,7 @@ public class UsuarioController {
 
         return "{" +
                 "\"data1\":\"" + data1.getTime().toString() + "\"," +
-                "\"data2\":\"" + data2.toString() + "\"" +
+                "\"data-gleyson12\":\"" + data2.toString() + "\"" +
                 "}";
     }
 
