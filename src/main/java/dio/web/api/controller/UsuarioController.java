@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
@@ -110,6 +113,29 @@ public class UsuarioController {
                 "}";
     }
 
+    @GetMapping ("/apiphp")
+    public void testApiPHP(String[] args) throws IOException {
 
+        URL url = new URL("http://api.portaldatransparencia.gov.br/api-de-dados/orgaos-siafi?pagina=1");
+        // URL url = new URL("https://apisenac2022.herokuapp.com/api.php/users");
+        // URL url = new URL("https://apisenac2022.herokuapp.com");
+
+        // create a client
+        var client = HttpClient.newHttpClient();
+
+        // create a request
+        var request = HttpRequest.newBuilder(
+                        URI.create("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"))
+                .header("accept", "application/json")
+                .build();
+
+        // use the client to send the request
+        var response = client.send(request, new JsonBodyHandler<>(APOD.class));
+
+        // the response:
+        System.out.println(response.body().get().title);
+
+
+    }
 
 }
