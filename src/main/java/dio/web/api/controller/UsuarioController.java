@@ -130,10 +130,10 @@ public class UsuarioController {
                 .build();
 
         // use the client to send the request
-        var response = client.send(request, new JsonBodyHandler<>(APOD.class));
+//        var response = client.send(request, new JsonBodyHandler<>(APOD.class));
 
         // the response:
-        System.out.println(response.body().get().title);
+//        System.out.println(response.body().get().title);
 
 
     }
